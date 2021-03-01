@@ -1,4 +1,4 @@
-# Minor_Project
+# Minor Project
 Topic Name : Old car prediction using Machine Learning &amp; Python
 <br>
 Host Link : http://127.0.0.1:5000/
