@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+    .bg-cover 
+      {
+        
+          background-image: linear-gradient(rgb(0,0,0,0.7),rgb(0,0,0,0.7)),url('../static/images/ban.jpg');
+          background-size: 100% 100%;
+          
+      }
+    li
+      {
+         text-indent: 0%;
+      }
+    </style>
+</head>
+<body>
+  <header>
+    <div class="conatiner">
+      <nav class="navbar navbar-inverse bg-light" style = "height:60px">
+        <span>  <a class="navbar-brand" href="#">
+          <img src="../static/icon/vintage-car.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+        </a>
+      </span>
+      </nav>
+    </div>
+  </header>
+     
+   <!-- BODY BLOCK -->
+   {% block body %} {% endblock %}
+
+   <br> 
+   <br>
+   <br>
+   <br>
+   <br>
+</body>
+</html>
