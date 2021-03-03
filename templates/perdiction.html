@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title> Price Analysis </title>   
+    <style>
+    .footer 
+      {
+          position: fixed;
+          background-color: rgba(0, 0, 0, 0.568);
+          bottom: 0;
+          width: 100%;
+          color: white;
+          text-align: center;
+      }
+      form
+      {
+          background-color: rgb(73, 240, 240);
+          padding: 30px 50px;
+          margin : 50px 60px;
+          width: 350px;
+          border: 2px dotted;
+      }
+      select
+      {
+         width: 150px;
+         height:30px;
+      }
+      button
+      {
+          padding : 5px 20px;
+          margin: 16px 100px;
+          border-radius: 10%;
+      }
+    </style> 
+</head>
+{% extends "layout.html" %}
+{% block body %}
+<body bgcolor = "black">
+    <center>
+        <h1 class="display-2">Bar chart for year {{ heading }} </h1>
+        <div class="container">
+            <form action = "/{{ pred }}" method ="POST">
+                <label> Year : </label>
+                <input type = "text" name = "year" required>
+                <br> <br>
+
+                <label> KM : </label>
+                <input type = "text" maxlength="10"  placeholder="0" name = "KM" required>
+                <br> <br>
+
+                <label> Fuel Type : </label>
+                <select name = "fuel">
+                    {% for item in range(ln) %}
+                        <option value = "{{ item }}"> {{ option[item] }} </option>     
+                    {% endfor %}
+                </select>
+                <br>
+                <br>
+                <button type="submit" class="btn btn-success"> Check </button>
+                <button type="reset" class="btn btn-danger"> Reset </button>
+            </form>
+        </div>
+    </center>
+    <ul type = "none">
+        <a href = "/"> <li> <- Back to main </li> </a>
+    </ul>
+    
+    <footer class="bg-light text-center text-lg-start footer">
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); padding: 10px;">
+          Made with ❤️ by PS<sup>3</sup>
+        </div>
+        <!-- Copyright -->
+      </footer>
+      {% endblock %}
+      
+</body>
+</html>

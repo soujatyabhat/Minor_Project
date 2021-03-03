@@ -1,6 +1,7 @@
 from flask import Flask,render_template,url_for,request,redirect
 import json, random
 import pandas as pd 
+import numpy as np
 
 app = Flask(__name__)
 
@@ -15,6 +16,27 @@ dataset = pd.read_csv('final.csv')
 dataset = dataset.dropna()
 
 
+#Santanu Saha Segment 
+#predict car price based on year,km, Fuel type
+
+@app.route('/santanu', methods=["GET", "POST"])
+def santanu():
+    unique_fuel_type = list(set(dataset.iloc[:,5].values))
+    return render_template('perdiction.html',option = unique_fuel_type , heading = "wise car sale",pred = "pred1",ln = len(unique_fuel_type))
+
+@app.route('/pred1', methods=["GET", "POST"])
+def main2():
+    if request.method == 'POST':
+        
+        #HTML Elements
+        year = int(request.form['year'])
+        km = int(request.form['KM'])
+        fuel = int(request.form['fuel'])
+        
+        #Predition code
+        
+
+        
 #Soujatya Bhattacharya Segment
 #Annalyse how many number of fuel type car had been brought in a specific year
 
@@ -28,7 +50,7 @@ years = list(map(int,dataset.iloc[:,2].values))
 
 
 @app.route('/rick', methods=["GET", "POST"])
-def main1():
+def main3():
     unique_years = list(set(years))
     return render_template('analysis.html',option = unique_years, heading = "wise car sale",year = "year1")
 
@@ -60,7 +82,7 @@ Unique_car_model = list(set(dataset.iloc[:,1].values))
 car_model = dataset.iloc[:,1].values
 
 @app.route('/satya', methods=["GET", "POST"])
-def main2():
+def main4():
     unique_years = list(set(years))
     return render_template('analysis.html',option = unique_years, heading = "wise car band",year = "year2")
 
@@ -76,6 +98,6 @@ def yr2():
                     count += 1
             y.append(count)
         return render_template('result.html', title=num, max=max(y), labels=Unique_car_model, values=y,link = "/satya")
-        
+       
 if __name__ == "__main__":
-    app.run()
+    app.run(port = 3000)
