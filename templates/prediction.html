@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <title> Price Analysis </title>   
+    <title> Price Prediction </title>   
     <style>
     .footer 
       {
@@ -41,11 +41,11 @@
 {% block body %}
 <body bgcolor = "black">
     <center>
-        <h1 class="display-2">Bar chart for year {{ heading }} </h1>
+        <h1 class="display-2"> {{ heading }} </h1>
         <div class="container">
             <form action = "/{{ pred }}" method ="POST">
                 <label> Year : </label>
-                <input type = "text" name = "year" required>
+                <input type = "text" name = "year" placeholder="0" required>
                 <br> <br>
 
                 <label> KM : </label>
@@ -60,6 +60,9 @@
                 </select>
                 <br>
                 <br>
+                <label> Price : </label>
+                <input type = "text" maxlength="10"  placeholder="0" value = "{{result }}" placeholder="0" readonly>
+                <br> <br>
                 <button type="submit" class="btn btn-success"> Check </button>
                 <button type="reset" class="btn btn-danger"> Reset </button>
             </form>
