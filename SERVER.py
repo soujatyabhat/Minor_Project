@@ -22,7 +22,7 @@ dataset = dataset.dropna()
 @app.route('/santanu', methods=["GET", "POST"])
 def santanu():
     unique_fuel_type = list(set(dataset.iloc[:,5].values))
-    return render_template('perdiction.html',option = unique_fuel_type , heading = "wise car sale",pred = "pred1",ln = len(unique_fuel_type))
+    return render_template('prediction.html',option = unique_fuel_type , heading = "wise car sale",pred = "pred1",ln = len(unique_fuel_type))
 
 @app.route('/pred1', methods=["GET", "POST"])
 def main2():
