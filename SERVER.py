@@ -1,5 +1,4 @@
-from flask import Flask,render_template,url_for,request,redirect
-import json, random
+from flask import Flask,render_template,request
 import pandas as pd 
 import numpy as np
 
@@ -19,13 +18,14 @@ dataset = dataset.dropna()
 #Santanu Saha Segment 
 #predict car price based on year,km, Fuel type
 
+unique_fuel_type = list(set(dataset.iloc[:,5].values))
+
 @app.route('/santanu', methods=["GET", "POST"])
-def santanu():
-    unique_fuel_type = list(set(dataset.iloc[:,5].values))
-    return render_template('prediction.html',option = unique_fuel_type , heading = "wise car sale",pred = "pred1",ln = len(unique_fuel_type))
+def main2():
+    return render_template('prediction.html',option = unique_fuel_type ,pred = "pred1",ln = len(unique_fuel_type),result = 0.0, heading = "Price prediction based on year, KMS Driven & Fuel Type")
 
 @app.route('/pred1', methods=["GET", "POST"])
-def main2():
+def pred1():
     if request.method == 'POST':
         
         #HTML Elements
@@ -34,15 +34,41 @@ def main2():
         fuel = int(request.form['fuel'])
         
         #Predition code
-        
+        dataset['Price']=dataset['Price'].str.replace(',',"")
+        dataset['KMS_Driven']=dataset['KMS_Driven'].str.replace('kms',"")
+        dataset['KMS_Driven']=dataset['KMS_Driven'].str.replace(',',"")
+        df=dataset.dropna()
+        print(df.shape)
+        x=df.iloc[:,[2,4,5]].values
+        y=df.iloc[:,3].values
+        from sklearn.preprocessing import LabelEncoder
+        labelencoder = LabelEncoder()
+        x[:, 2] = labelencoder.fit_transform(x[:, 2])
+        print(x)
+        from sklearn.model_selection import train_test_split
+        x_train, x_test, y_train, y_test =train_test_split(x, y, 
+                        test_size = .25, random_state = 0)
+
+
+        from sklearn.linear_model import LinearRegression
+        regressor=LinearRegression()
+        regressor.fit(x_train,y_train)
+        y_pred=regressor.predict(x_test)
+    
+        accuracy=(regressor.score(x_test,y_pred))
+        print("Accuracy=",accuracy)
+    
+        #Rearrange form element's data to an array 
+        arr = np.array([year,km,fuel]).reshape(1, 3)
+    
+        from sklearn import metrics
+        print("Error=",np.sqrt(metrics.mean_squared_error(y_test,y_pred)))
+        return render_template('prediction.html',option = unique_fuel_type ,pred = "pred1",ln = len(unique_fuel_type),result = int(regressor.predict(arr)), heading = "Price prediction based on year, KMS Driven & Fuel Type")
 
         
 #Soujatya Bhattacharya Segment
 #Annalyse how many number of fuel type car had been brought in a specific year
 
-
-#Distinct fuel types from dataset
-Unique_fuel_type = list(set(dataset.iloc[:,5].values))
 
 #import data fields
 fuel_type = dataset.iloc[:,5].values
@@ -61,14 +87,14 @@ def yr1():
     if request.method == 'POST':
         num = request.form['year']
         y_axis = []
-        for check_fuel_type in Unique_fuel_type:
+        for check_fuel_type in unique_fuel_type:
             count = 0
             for j in range(len(fuel_type)):
                 if fuel_type[j] == check_fuel_type and years[j] == int(num):
                     count += 1
             y_axis.append(count)
         print(y_axis)
-        return render_template('result.html', title=num, max=max(y_axis), labels=Unique_fuel_type, values=y_axis,link = "/rick")
+        return render_template('result.html', title=num, max=max(y_axis), labels=unique_fuel_type, values=y_axis,link = "/rick")
 
 
 #Satyajit Mallick Segment
