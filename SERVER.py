@@ -133,7 +133,29 @@ def yr1():
 #Satyajit Mallick Segment
 #Annalyse which model of car were sale a pertculer year 
 #----------------------------------------------------------------------------------------------------
-        
+#Distinct fuel types from dataset
+Unique_car_model = list(set(dataset.iloc[:,1].values))
+
+#import data fields
+car_model = dataset.iloc[:,1].values
+
+@app.route('/satya', methods=["GET", "POST"])
+def main4():
+    unique_years = list(set(years))
+    return render_template('analysis.html',option = unique_years, heading = "wise car band",year = "year2")
+
+@app.route('/year2', methods=["GET", "POST"])
+def yr2():
+    if request.method == 'POST':
+        num = request.form['year']
+        y = []
+        for check_car_model in Unique_car_model:
+            count = 0
+            for j in range(len(car_model)):
+                if car_model[j] == check_car_model and years[j] == int(num):
+                    count += 1
+            y.append(count)
+        return render_template('result.html', title=num, max=max(y), labels=Unique_car_model, values=y,link = "/satya")
 
 
 #---------------------------------------------------------------------------------------      
