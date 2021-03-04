@@ -44,15 +44,15 @@
         <h1 class="display-2"> {{ heading }} </h1>
         <div class="container">
             <form action = "/{{ pred }}" method ="POST">
-                <label> Year : </label>
+                <label> {{ one }} : </label>
                 <input type = "text" name = "year" placeholder="0" required>
                 <br> <br>
 
-                <label> KM : </label>
+                <label> {{ two }} : </label>
                 <input type = "text" maxlength="10"  placeholder="0" name = "KM" required>
                 <br> <br>
 
-                <label> Fuel Type : </label>
+                <label> {{ three }} : </label>
                 <select name = "fuel">
                     {% for item in range(ln) %}
                         <option value = "{{ item }}"> {{ option[item] }} </option>     
@@ -60,7 +60,7 @@
                 </select>
                 <br>
                 <br>
-                <label> Price : </label>
+                <label>{{ four }} </label>
                 <input type = "text" maxlength="10"  placeholder="0" value = "{{result }}" placeholder="0" readonly>
                 <br> <br>
                 <button type="submit" class="btn btn-success"> Check </button>

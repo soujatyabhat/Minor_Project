@@ -1,6 +1,7 @@
 from flask import Flask,render_template,request
 import pandas as pd 
 import numpy as np
+import Old_Car_Price_Prediction as od
 
 app = Flask(__name__)
 
@@ -15,17 +16,44 @@ dataset = pd.read_csv('final.csv')
 dataset = dataset.dropna()
 
 
+#Pijush Segment
+#Predict car price based on year , km, fuel
+#----------------------------------------------------------------------------------------
+Unique_car_model = list(set(dataset.iloc[:,1].values))
+
+@app.route('/pijush', methods=["GET", "POST"])
+def main1():
+    return render_template('prediction1.html',option = Unique_car_model ,pred = "pred1",result = 0.0,
+    heading = "Price prediction based on brand & age")
+
+@app.route('/pred1', methods=["GET", "POST"])
+def pred1():
+    if request.method == 'POST':
+        
+        #HTML Elements
+        model = request.form['model']
+        age = int(request.form['age'])
+        print(od.excute(model,age))
+        
+
+
+        
+        
+
+            
 #Santanu Saha Segment 
 #predict car price based on year,km, Fuel type
+#----------------------------------------------------------------------------------------------------
 
 unique_fuel_type = list(set(dataset.iloc[:,5].values))
 
 @app.route('/santanu', methods=["GET", "POST"])
 def main2():
-    return render_template('prediction.html',option = unique_fuel_type ,pred = "pred1",ln = len(unique_fuel_type),result = 0.0, heading = "Price prediction based on year, KMS Driven & Fuel Type")
+    return render_template('prediction2.html',option = unique_fuel_type ,pred = "pred2",ln = len(unique_fuel_type),result = 0.0,
+    heading = "Price prediction based on year, KMS Driven & Fuel Type")
 
-@app.route('/pred1', methods=["GET", "POST"])
-def pred1():
+@app.route('/pred2', methods=["GET", "POST"])
+def predw():
     if request.method == 'POST':
         
         #HTML Elements
@@ -63,12 +91,15 @@ def pred1():
     
         from sklearn import metrics
         print("Error=",np.sqrt(metrics.mean_squared_error(y_test,y_pred)))
-        return render_template('prediction.html',option = unique_fuel_type ,pred = "pred1",ln = len(unique_fuel_type),result = int(regressor.predict(arr)), heading = "Price prediction based on year, KMS Driven & Fuel Type")
+        return render_template('prediction.html',option = unique_fuel_type ,pred = "pred1",ln = len(unique_fuel_type),result = int(regressor.predict(arr)), heading = "Price prediction based on year, KMS Driven & Fuel Type", one = "Year", two = "KM")
 
+#----------------------------------------------------------------------------------------------------
         
+    
+    
 #Soujatya Bhattacharya Segment
 #Annalyse how many number of fuel type car had been brought in a specific year
-
+#----------------------------------------------------------------------------------------------------
 
 #import data fields
 fuel_type = dataset.iloc[:,5].values
@@ -97,33 +128,14 @@ def yr1():
         return render_template('result.html', title=num, max=max(y_axis), labels=unique_fuel_type, values=y_axis,link = "/rick")
 
 
+#--------------------------------------------------------------------------------------------------
+        
 #Satyajit Mallick Segment
 #Annalyse which model of car were sale a pertculer year 
+#----------------------------------------------------------------------------------------------------
+        
 
 
-#Distinct fuel types from dataset
-Unique_car_model = list(set(dataset.iloc[:,1].values))
-
-#import data fields
-car_model = dataset.iloc[:,1].values
-
-@app.route('/satya', methods=["GET", "POST"])
-def main4():
-    unique_years = list(set(years))
-    return render_template('analysis.html',option = unique_years, heading = "wise car band",year = "year2")
-
-@app.route('/year2', methods=["GET", "POST"])
-def yr2():
-    if request.method == 'POST':
-        num = request.form['year']
-        y = []
-        for check_car_model in Unique_car_model:
-            count = 0
-            for j in range(len(car_model)):
-                if car_model[j] == check_car_model and years[j] == int(num):
-                    count += 1
-            y.append(count)
-        return render_template('result.html', title=num, max=max(y), labels=Unique_car_model, values=y,link = "/satya")
-       
+#---------------------------------------------------------------------------------------      
 if __name__ == "__main__":
     app.run(port = 3000)
