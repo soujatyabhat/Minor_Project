@@ -1,5 +1,5 @@
 # Minor Project
-Topic Name : Old car prediction with Machine Learning 
+Topic Name : Old car prediction with ML & Flask
 <br>
 Host Link : http://127.0.0.1:3000/
 <br>
