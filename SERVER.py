@@ -1,7 +1,6 @@
 from flask import Flask,render_template,request
 import pandas as pd 
-import numpy as np
-import Old_Car_Price_Prediction as od
+
 
 app = Flask(__name__)
 
@@ -12,18 +11,18 @@ def index():
     return render_template('index.html')
 
 # Importing the dataset
-dataset = pd.read_csv('final.csv')
+dataset = pd.read_csv('csv/final.csv')
 dataset = dataset.dropna()
 
 
 #Pijush Segment
-#Predict car price based on year , km, fuel
-#----------------------------------------------------------------------------------------
-Unique_car_model = list(set(dataset.iloc[:,1].values))
+#Predict car price based on Model, Age
+#-------------------------------------------------------------------------------------------------
+unique_car_model = list(set(dataset.iloc[:,1].values))
 
 @app.route('/pijush', methods=["GET", "POST"])
 def main1():
-    return render_template('prediction1.html',option = Unique_car_model ,pred = "pred1",result = 0.0,
+    return render_template('prediction1.html',option =unique_car_model ,pred = "pred1" , result = 0.0,
     heading = "Price prediction based on brand & age")
 
 @app.route('/pred1', methods=["GET", "POST"])
@@ -33,18 +32,16 @@ def pred1():
         #HTML Elements
         model = request.form['model']
         age = int(request.form['age'])
-        print(od.excute(model,age))
         
-
-
+        #Price Prediction One
+        import others.Carprice_Predict_Pijush as od
+        return render_template('prediction1.html',option = unique_car_model ,pred = "pred1",result = int(od.excute(model,age)),
+                               heading = "Price prediction based on brand & age")
+#----------------------------------------------------------------------------------------------------
         
-        
-
-            
 #Santanu Saha Segment 
 #predict car price based on year,km, Fuel type
 #----------------------------------------------------------------------------------------------------
-
 unique_fuel_type = list(set(dataset.iloc[:,5].values))
 
 @app.route('/santanu', methods=["GET", "POST"])
@@ -53,7 +50,7 @@ def main2():
     heading = "Price prediction based on year, KMS Driven & Fuel Type")
 
 @app.route('/pred2', methods=["GET", "POST"])
-def predw():
+def pred2():
     if request.method == 'POST':
         
         #HTML Elements
@@ -61,38 +58,10 @@ def predw():
         km = int(request.form['KM'])
         fuel = int(request.form['fuel'])
         
-        #Predition code
-        dataset['Price']=dataset['Price'].str.replace(',',"")
-        dataset['KMS_Driven']=dataset['KMS_Driven'].str.replace('kms',"")
-        dataset['KMS_Driven']=dataset['KMS_Driven'].str.replace(',',"")
-        df=dataset.dropna()
-        print(df.shape)
-        x=df.iloc[:,[2,4,5]].values
-        y=df.iloc[:,3].values
-        from sklearn.preprocessing import LabelEncoder
-        labelencoder = LabelEncoder()
-        x[:, 2] = labelencoder.fit_transform(x[:, 2])
-        print(x)
-        from sklearn.model_selection import train_test_split
-        x_train, x_test, y_train, y_test =train_test_split(x, y, 
-                        test_size = .25, random_state = 0)
-
-
-        from sklearn.linear_model import LinearRegression
-        regressor=LinearRegression()
-        regressor.fit(x_train,y_train)
-        y_pred=regressor.predict(x_test)
-    
-        accuracy=(regressor.score(x_test,y_pred))
-        print("Accuracy=",accuracy)
-    
-        #Rearrange form element's data to an array 
-        arr = np.array([year,km,fuel]).reshape(1, 3)
-    
-        from sklearn import metrics
-        print("Error=",np.sqrt(metrics.mean_squared_error(y_test,y_pred)))
-        return render_template('prediction.html',option = unique_fuel_type ,pred = "pred1",ln = len(unique_fuel_type),result = int(regressor.predict(arr)), heading = "Price prediction based on year, KMS Driven & Fuel Type", one = "Year", two = "KM")
-
+        #Price Prediction Two
+        import others.Carprice_Predict_Santanu as cp
+        return render_template('prediction2.html',option = unique_fuel_type ,pred = "pred2",ln = len(unique_fuel_type),result = int(cp.execute(year,km,fuel)),
+                               heading = "Price prediction based on year, KMS Driven & Fuel Type")
 #----------------------------------------------------------------------------------------------------
         
     
@@ -100,8 +69,6 @@ def predw():
 #Soujatya Bhattacharya Segment
 #Annalyse how many number of fuel type car had been brought in a specific year
 #----------------------------------------------------------------------------------------------------
-
-#import data fields
 fuel_type = dataset.iloc[:,5].values
 years = list(map(int,dataset.iloc[:,2].values))
 
@@ -126,17 +93,13 @@ def yr1():
             y_axis.append(count)
         print(y_axis)
         return render_template('result.html', title=num, max=max(y_axis), labels=unique_fuel_type, values=y_axis,link = "/rick")
-
-
 #--------------------------------------------------------------------------------------------------
         
+    
 #Satyajit Mallick Segment
 #Annalyse which model of car were sale a pertculer year 
+        
 #----------------------------------------------------------------------------------------------------
-#Distinct fuel types from dataset
-Unique_car_model = list(set(dataset.iloc[:,1].values))
-
-#import data fields
 car_model = dataset.iloc[:,1].values
 
 @app.route('/satya', methods=["GET", "POST"])
@@ -149,13 +112,13 @@ def yr2():
     if request.method == 'POST':
         num = request.form['year']
         y = []
-        for check_car_model in Unique_car_model:
+        for check_car_model in unique_car_model:
             count = 0
             for j in range(len(car_model)):
                 if car_model[j] == check_car_model and years[j] == int(num):
                     count += 1
             y.append(count)
-        return render_template('result.html', title=num, max=max(y), labels=Unique_car_model, values=y,link = "/satya")
+        return render_template('result.html', title=num, max=max(y), labels = unique_car_model, values=y,link = "/satya")
 
 
 #---------------------------------------------------------------------------------------      

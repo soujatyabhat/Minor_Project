@@ -35,6 +35,15 @@
           margin: 16px 100px;
           border-radius: 10%;
       }
+      .about{
+        text-decoration: none;
+        color:yellow;
+        font-size: 13px;
+      }
+      .about:hover{
+        color: red;
+        text-decoration: none;
+      }
     </style> 
 </head>
 {% extends "layout.html" %}
@@ -44,23 +53,22 @@
         <h1 class="display-2"> {{ heading }} </h1>
         <div class="container">
             <form action = "/{{ pred }}" method ="POST">
-                <label> {{ one }} : </label>
+                <label> Year : </label>
                 <input type = "text" name = "year" placeholder="0" required>
                 <br> <br>
 
-                <label> {{ two }} : </label>
+                <label> KM : </label>
                 <input type = "text" maxlength="10"  placeholder="0" name = "KM" required>
                 <br> <br>
 
-                <label> {{ three }} : </label>
+                <label> Fuel : </label>
                 <select name = "fuel">
                     {% for item in range(ln) %}
                         <option value = "{{ item }}"> {{ option[item] }} </option>     
                     {% endfor %}
                 </select>
-                <br>
-                <br>
-                <label>{{ four }} </label>
+                <br> <br>
+                <label> Price : </label>
                 <input type = "text" maxlength="10"  placeholder="0" value = "{{result }}" placeholder="0" readonly>
                 <br> <br>
                 <button type="submit" class="btn btn-success"> Check </button>
@@ -75,7 +83,7 @@
     <footer class="bg-light text-center text-lg-start footer">
         <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); padding: 10px;">
-          Made with ❤️ by PS<sup>3</sup>
+          Made with ❤️ by <a href = "/about" class = "about" title = "About Us">PS<sup>3</sup></a>
         </div>
         <!-- Copyright -->
       </footer>

@@ -35,6 +35,15 @@
           margin: 16px 100px;
           border-radius: 10%;
       }
+      .about{
+        text-decoration: none;
+        color:yellow;
+        font-size: 13px;
+      }
+      .about:hover{
+        color: red;
+        text-decoration: none;
+      }
     </style> 
 </head>
 {% extends "layout.html" %}
@@ -71,11 +80,10 @@
     <footer class="bg-light text-center text-lg-start footer">
         <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); padding: 10px;">
-          Made with ❤️ by PS<sup>3</sup>
+          Made with ❤️ by <a href = "/about" class = "about" title = "About">PS<sup>3</sup></a>
         </div>
         <!-- Copyright -->
       </footer>
       {% endblock %}
-      
 </body>
 </html>
