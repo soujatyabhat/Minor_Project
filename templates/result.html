@@ -30,10 +30,11 @@
   {% extends "layout.html" %}
   {% block body %}
   <center>
-    <h1>  {{ title }} car sale analysis</h1>
+    <h1>  {{ heading }} </h1>
   </center>
+  <br>
   <center>
-    <canvas id="chart" width="900" height="400"></canvas>
+    <canvas id="chart" width=" {{ width }} " height=" {{ height }} "></canvas>
     <script>
       // bar chart data
       var barData = {
@@ -82,11 +83,10 @@
   <a href = "{{ link }}"> <li> <- Back  </li> </a>
 </ul>
 <footer class="bg-light text-center text-lg-start footer">
-      <!-- Copyright -->
+      <!-- About -->
       <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); padding: 10px;">
         Made with ❤️ by <a href = "/about" class = "about" title = "About">PS<sup>3</sup></a>
       </div>
-      <!-- Copyright -->
     </footer>
     {% endblock %}
 </body>

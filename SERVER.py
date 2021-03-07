@@ -78,7 +78,8 @@ years = list(map(int,dataset.iloc[:,2].values))
 @app.route('/rick', methods=["GET", "POST"])
 def main3():
     unique_years = list(set(years))
-    return render_template('analysis.html',option = unique_years, heading = "wise car sale",year = "year1")
+    return render_template('analysis.html',option = unique_years, heading = "Analyse Saled Car VS Fuel Type based on specific year",
+                           year = "year1")
 
 
 
@@ -94,7 +95,8 @@ def yr1():
                     count += 1
             y_axis.append(count)
         print(y_axis)
-        return render_template('result.html', title=num, max=max(y_axis), labels=unique_fuel_type, values=y_axis,link = "/rick")
+        return render_template('result.html', title=num, max=max(y_axis), labels=unique_fuel_type, values=y_axis,link = "/rick",
+                               heading = "Analyse Saled Car VS Fuel Type based on specific year",width = "500", height = "400")
 #--------------------------------------------------------------------------------------------------
         
     
@@ -107,7 +109,8 @@ car_model = dataset.iloc[:,1].values
 @app.route('/satya', methods=["GET", "POST"])
 def main4():
     unique_years = list(set(years))
-    return render_template('analysis.html',option = unique_years, heading = "wise car band",year = "year2")
+    return render_template('analysis.html',option = unique_years, heading = "Analyse Saled Car VS Car Model based on specific year",
+                           year = "year2")
 
 @app.route('/year2', methods=["GET", "POST"])
 def yr2():
@@ -120,7 +123,8 @@ def yr2():
                 if car_model[j] == check_car_model and years[j] == int(num):
                     count += 1
             y.append(count)
-        return render_template('result.html', title=num, max=max(y), labels = unique_car_model, values=y,link = "/satya")
+        return render_template('result.html', title=num, max=max(y), labels = unique_car_model, values=y,link = "/satya",
+                               heading = "Analyse Saled Car VS Car Model based on specific year",width = "900", height = "400")
 
 
 #---------------------------------------------------------------------------------------     
@@ -128,10 +132,10 @@ def yr2():
 @app.route('/about', methods=["GET", "POST"])
 def about():
     thisdict = {
+        "Soujatya Bhattacharya (Project Coordinator)":"Analyse Saled Car VS Fuel Type based on specific year & Web Application Interface Design",
+        "Satyajit Mallick ": "Analyse Saled Car VS Car Model based on specific year",
         "Pijush Kanti Lasker ": "Predict car price based on Brand Name,  Car Age",
-        "Santanu Saha ": "Predict car price based  Year, KM Driven, Fuel Type",
-        "Satyajit Mallick ": "Analyse Sailed Car VS Car Model based on specific year",
-        "Soujatya Bhattacharya":"Analyse Sailed Car VS Fuel Type based on specific year & Web Application Interface Design"
+        "Santanu Saha ": "Predict car price based  Year, KM Driven, Fuel Type"
      }
     return render_template('about.html', send = thisdict)
 
