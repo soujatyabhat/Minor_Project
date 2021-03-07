@@ -35,7 +35,7 @@ def pred1():
         
         #Price Prediction One
         import others.Carprice_Predict_Pijush as od
-        return render_template('prediction1.html',option = unique_car_model ,pred = "pred1",result = int(od.excute(model,age)),
+        return render_template('prediction1.html',option = unique_car_model ,pred = "pred1",result = float(od.excute(model,age)),
                                heading = "Price prediction based on brand & age")
         
         
@@ -62,7 +62,7 @@ def pred2():
         
         #Price Prediction Two
         import others.Carprice_Predict_Santanu as cp
-        return render_template('prediction2.html',option = unique_fuel_type ,pred = "pred2",ln = len(unique_fuel_type),result = int(cp.execute(year,km,fuel)),
+        return render_template('prediction2.html',option = unique_fuel_type ,pred = "pred2",ln = len(unique_fuel_type),result = float(cp.execute(year,km,fuel)),
                                heading = "Price prediction based on year, KMS Driven & Fuel Type")
 #----------------------------------------------------------------------------------------------------
         
@@ -123,6 +123,19 @@ def yr2():
         return render_template('result.html', title=num, max=max(y), labels = unique_car_model, values=y,link = "/satya")
 
 
-#---------------------------------------------------------------------------------------      
+#---------------------------------------------------------------------------------------     
+#about 
+@app.route('/about', methods=["GET", "POST"])
+def about():
+    thisdict = {
+        "Pijush Kanti Lasker ": "Predict car price based on Brand Name,  Car Age",
+        "Santanu Saha ": "Predict car price based  Year, KM Driven, Fuel Type",
+        "Satyajit Mallick ": "Analyse Sailed Car VS Car Model based on specific year",
+        "Soujatya Bhattacharya":"Analyse Sailed Car VS Fuel Type based on specific year & Web Application Interface Design"
+     }
+    return render_template('about.html', send = thisdict)
+
+
+#Run Web Application
 if __name__ == "__main__":
     app.run(port = 3000)

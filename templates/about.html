@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> About </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+    .footer 
+      {
+          position: fixed;
+          background-color: rgba(0, 0, 0, 0.568);
+          bottom: 0;
+          width: 100%;
+          color: white;
+          text-align: center;
+      }
+      form
+      {
+          background-color: rgb(73, 240, 240);
+          padding: 30px 50px;
+          margin : 50px 60px;
+          width: 350px;
+          border: 2px dotted;
+      }
+      select
+      {
+         width: 150px;
+         height:30px;
+      }
+      button
+      {
+          padding : 5px 20px;
+          margin: 16px 100px;
+          border-radius: 10%;
+      }
+      .about{
+        text-decoration: none;
+        color:yellow;
+        font-size: 13px;
+      }
+      .about:hover{
+        color: red;
+        text-decoration: none;
+      }
+      img
+      {
+          border-radius: 100%;
+          border:2px solid;
+      }
+    </style> 
+</head>
+<body>
+{% extends "layout.html" %}
+{% block body %}
+<br>
+<center>
+    <img src = "../static/icon/ps.jpeg" width = "150px" height="150px">
+</center>
+
+<div class = "container">
+  <br>
+  <table class="table table-bordered table-dark">
+      <tr>
+        <center>
+            <th> Contributor's Name </th>
+            <th> Responsibility </th>
+      </center>
+      </tr>
+      {% for x, y in send.items() %}
+      <tr>
+        <td>{{ x }}</td>
+        <td>{{ y }}</td>
+      </tr>
+      {% endfor %}
+  </table>
+</div>
+<ul type = "none">
+    <a href = "/"> <li> <- Back to main </li> </a>
+</ul>
+
+<footer class="bg-light text-center text-lg-start footer">
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); padding: 10px;">
+      Made with ❤️ by <a href = "/about" class = "about" title = "About Us">PS<sup>3</sup></a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  {% endblock %}
+</body>
+</html>
