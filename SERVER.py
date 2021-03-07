@@ -15,7 +15,7 @@ dataset = pd.read_csv('csv/final.csv')
 dataset = dataset.dropna()
 
 
-#Pijush Segment
+#Pijush Kanti Laskar Segment
 #Predict car price based on Model, Age
 #-------------------------------------------------------------------------------------------------
 unique_car_model = list(set(dataset.iloc[:,1].values))
