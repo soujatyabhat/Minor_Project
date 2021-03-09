@@ -10,10 +10,16 @@
       {
         font-size: 18pt;
       }
-     a
+     .menu
      {
        font-size: 18pt;
        text-transform: none;
+     }
+     .menu:hover
+     {
+       color : red;
+       text-transform: none;
+       text-shadow: 0 0 2px 6px  black;
      }
      .footer 
       {
@@ -42,8 +48,8 @@
         <div class="jumbotron jumbotron bg-cover" style = "margin-top: -50px;height: 400px;">
           <div class="overlay"></div>
           <div class="container">
-            <h1 class="display-3 mb-1" style  = "color:white;text-align:center;padding-top: 50px; font-size: 40pt; font-weight: 800;">
-              Used car price prediction 
+            <h1 class="display-1" style  = "color:white;text-align:center;padding-top: 50px; font-size: 40pt; font-weight: 800;">
+              Used Car Price Prediction 
             </h1>
             <p style = "text-align: center; color:orange"> - with Machine Learning </p>
           </div>
@@ -54,10 +60,10 @@
             <div class="col-md-7">
               <h2 class="featurette-heading"> Links for Price Analysis and Predictions </h2>
                 <ol type = "i">
-                  <li> <a href = "/pijush"> Price Prediction One </a> </li>
-                  <li> <a href = "/santanu"> Price Prediction Two </a> </li>   
-                  <li> <a href = "/satya"> Analysis One </a> </li>
-                  <li> <a href = "/rick"> Analysis Two </a> </li>
+                  <li> <a href = "/pijush" class = "menu"> Price Prediction One </a> </li>
+                  <li> <a href = "/santanu" class = "menu" > Price Prediction Two </a> </li>   
+                  <li> <a href = "/satya" class = "menu"> Analysis One </a> </li>
+                  <li> <a href = "/rick" class = "menu"> Analysis Two </a> </li>
                 </ol>
             </div>
             <div class="col-md-5">
