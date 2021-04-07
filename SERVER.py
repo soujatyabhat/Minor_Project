@@ -33,11 +33,6 @@ def pred1():
         model = request.form['model']
         age = int(request.form['age'])
         
-        #Price Prediction One
-        import others.Carprice_Predict_Pijush as od
-        return render_template('prediction1.html',option = unique_car_model ,pred = "pred1",result = int(od.excute(model,age)),
-                               heading = "Price prediction based on brand & age")
-        
         
 #----------------------------------------------------------------------------------------------------
         
